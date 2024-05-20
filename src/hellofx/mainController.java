@@ -25,6 +25,15 @@ import java.util.*;
 public class mainController implements Initializable {
 
     @FXML
+    private Button discardChanges_btn;
+
+    @FXML
+    private Button saveChanges_btn;
+
+    @FXML
+    private AreaChart<?, ?> userLogins_graph;
+
+    @FXML
     private Button finishedPlans_btn;
 
     @FXML
@@ -68,6 +77,18 @@ public class mainController implements Initializable {
 
     @FXML
     private Button home_btn;
+
+    @FXML
+    private TextField home_dateOfBirth;
+
+    @FXML
+    private TextField home_email;
+
+    @FXML
+    private TextField home_name;
+
+    @FXML
+    private TextField home_phone;
 
     @FXML
     private Label home_dateRegistered;
@@ -147,10 +168,6 @@ public class mainController implements Initializable {
     private Statement statement;
 
     private Alert alert;
-
-    public void updateChart() {
-
-    }
 
     public void homeDisplayUsername() {
         home_username.setText(username.getText());
