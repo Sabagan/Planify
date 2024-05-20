@@ -18,3 +18,5 @@ Run -> Edit Configurations -> + (Add) -> Application
   Run On: Local Machine (unless you'd prefer one of the other options)
   VM Options: --module-path ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml
   - Note. PATH_TO_FX should be the location of JavaFX (check where you downloaded it)
+
+Note. The files you see with the .fxml extension were created using SceneBuilder for Java
