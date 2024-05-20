@@ -1,1 +1,0 @@
-This folder contains libraries that you need when running this JavaFX program
