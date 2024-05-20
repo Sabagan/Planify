@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.Controller">
+   <children>
+      <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <BorderPane fx:id="login_form" prefHeight="450.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <right>
+                  <AnchorPane prefHeight="450.0" prefWidth="325.0" styleClass="bg-form" stylesheets="@design.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="102.0" layoutY="143.0" text="User Login">
+                           <font>
+                              <Font name="Tahoma" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="login_username" layoutX="50.0" layoutY="206.0" onAction="#loginAccount" prefHeight="32.0" prefWidth="212.0" promptText="Username" styleClass="input" stylesheets="@design.css" AnchorPane.topAnchor="206.0" />
+                        <PasswordField fx:id="login_password" layoutX="48.0" layoutY="274.0" onAction="#loginAccount" prefHeight="33.0" prefWidth="216.0" promptText="Password" styleClass="input" stylesheets="@design.css" />
+                        <Button fx:id="login_button" layoutX="106.0" layoutY="335.0" mnemonicParsing="false" onAction="#loginAccount" prefHeight="34.0" prefWidth="86.0" styleClass="login-btn" stylesheets="@design.css" text="Login" />
+                        <Label layoutX="59.0" layoutY="402.0" stylesheets="@design.css" text="Not Registered?" textFill="WHITE">
+                           <font>
+                              <Font name="Dubai Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Hyperlink fx:id="login_createAccount" layoutX="163.0" layoutY="399.0" onAction="#switchForm" text="Create Account" textFill="#c52525">
+                           <font>
+                              <Font name="Dubai Bold" size="14.0" />
+                           </font>
+                        </Hyperlink>
+                        <FontAwesomeIcon glyphName="USER" layoutX="123.0" layoutY="123.0" size="5em" />
+                     </children>
+                  </AnchorPane>
+               </right>
+               <center>
+                  <AnchorPane prefHeight="450.0" prefWidth="325.0" styleClass="empty-form" stylesheets="@design.css" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+            <BorderPane fx:id="register_form" prefHeight="450.0" prefWidth="650.0" visible="false">
+               <center>
+                  <AnchorPane prefHeight="349.0" prefWidth="325.0" styleClass="bg-form" stylesheets="@design.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="97.0" layoutY="140.0" text="Register User">
+                           <font>
+                              <Font name="Tahoma" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="register_username" layoutX="50.0" layoutY="204.0" onAction="#registerAccount" prefHeight="34.0" prefWidth="212.0" promptText="Username" styleClass="input" stylesheets="@design.css" AnchorPane.topAnchor="204.0" />
+                        <PasswordField fx:id="register_password" layoutX="48.0" layoutY="271.0" onAction="#registerAccount" prefHeight="36.0" prefWidth="216.0" promptText="Password" styleClass="input" stylesheets="@design.css" />
+                        <Button fx:id="register_btn" layoutX="113.0" layoutY="336.0" mnemonicParsing="false" onAction="#registerAccount" prefHeight="34.0" prefWidth="86.0" styleClass="login-btn" stylesheets="@design.css" text="Sign Up" />
+                        <Hyperlink fx:id="register_alreadyAccount" layoutX="82.0" layoutY="399.0" onAction="#switchForm" text="Already have an Account?" textFill="#b51d1d">
+                           <font>
+                              <Font name="Dubai Bold" size="14.0" />
+                           </font>
+                        </Hyperlink>
+                        <FontAwesomeIcon glyphName="USER_PLUS" layoutX="137.0" layoutY="113.0" size="5em" />
+                     </children>
+                  </AnchorPane>
+               </center>
+               <right>
+                  <AnchorPane prefHeight="450.0" prefWidth="325.0" styleClass="empty-form" stylesheets="@design.css" BorderPane.alignment="CENTER" />
+               </right>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

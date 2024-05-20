@@ -1,0 +1,26 @@
+.bg-form {
+    -fx-background-color: linear-gradient(to bottom right, #249f6a, #0f673a);
+}
+
+.input {
+    -fx-background-color: white;
+}
+
+.empty-form {
+    -fx-background-image: url('side-image.jpg');
+}
+
+.login-btn {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.login-btn:hover {
+    -fx-background-color: grey;
+}
+
+.hyperlink {
+    -fx-background-color: transparent;
+    -fx-underline: false;
+}
