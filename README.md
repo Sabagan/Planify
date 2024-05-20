@@ -10,3 +10,8 @@ The workspace contains two folders by default, where:
 - `lib`: the folder to maintain dependencies
 
 Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+
+## Note: This project is still in the developement phase. I followed a tutorial on getting started with JavaFX and SQL, and I'm applying my knowledge further to enhance the user experience.
+
+
+I created the project to easen planning my weekly schedule so I can keep up with Due Dates
