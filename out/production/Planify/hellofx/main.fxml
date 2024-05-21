@@ -80,7 +80,7 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="center-form" stylesheets="@mainDesign.css" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="home_form" layoutX="14.0" layoutY="14.0" prefHeight="544.8" prefWidth="860.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="home_form" layoutX="14.0" layoutY="14.0" prefHeight="544.8" prefWidth="860.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="292.0" prefHeight="237.0" prefWidth="406.0" styleClass="card" stylesheets="@mainDesign.css">
                                  <children>
@@ -144,10 +144,10 @@
                                     </Label>
                                     <DatePicker fx:id="myPlans_startDate" layoutX="367.0" layoutY="62.0" />
                                     <DatePicker fx:id="myPlans_endDate" layoutX="603.0" layoutY="62.0" />
-                                    <Button fx:id="myPlans_addBtn" layoutX="350.0" layoutY="153.0" mnemonicParsing="false" onAction="#myPlansAddBtn" prefHeight="34.0" prefWidth="103.0" styleClass="btn" stylesheets="@planDesign.css" text="Add" />
-                                    <Button fx:id="myPlans_updateBtn" layoutX="463.0" layoutY="153.0" mnemonicParsing="false" onAction="#myPlansUpdateBtn" prefHeight="34.0" prefWidth="103.0" styleClass="btn" stylesheets="@planDesign.css" text="Update" />
-                                    <Button fx:id="myPlans_clearBtn" layoutX="592.0" layoutY="153.0" mnemonicParsing="false" onAction="#myPlansClearBtn" prefHeight="34.0" prefWidth="103.0" styleClass="btn" stylesheets="@planDesign.css" text="Clear" />
-                                    <Button fx:id="myPlans_deleteBtn" layoutX="705.0" layoutY="153.0" mnemonicParsing="false" onAction="#myPlansDeleteBtn" prefHeight="34.0" prefWidth="103.0" styleClass="btn" stylesheets="@planDesign.css" text="Delete" />
+                                    <Button fx:id="myPlans_addBtn" layoutX="350.0" layoutY="153.0" mnemonicParsing="false" onAction="#myPlansAddBtn" prefHeight="34.0" prefWidth="103.0" styleClass="btn" stylesheets="@mainDesign.css" text="Add" />
+                                    <Button fx:id="myPlans_updateBtn" layoutX="463.0" layoutY="153.0" mnemonicParsing="false" onAction="#myPlansUpdateBtn" prefHeight="34.0" prefWidth="103.0" styleClass="btn" stylesheets="@mainDesign.css" text="Update" />
+                                    <Button fx:id="myPlans_clearBtn" layoutX="592.0" layoutY="153.0" mnemonicParsing="false" onAction="#myPlansClearBtn" prefHeight="34.0" prefWidth="103.0" styleClass="btn" stylesheets="@mainDesign.css" text="Clear" />
+                                    <Button fx:id="myPlans_deleteBtn" layoutX="705.0" layoutY="153.0" mnemonicParsing="false" onAction="#myPlansDeleteBtn" prefHeight="34.0" prefWidth="103.0" styleClass="btn" stylesheets="@mainDesign.css" text="Delete" />
                                  </children>
                               </AnchorPane>
                               <TableView fx:id="myPlans_tableView" layoutX="16.0" layoutY="258.0" onMouseClicked="#myPlansSelectData" prefHeight="264.0" prefWidth="830.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="243.0">
@@ -192,33 +192,85 @@
                                        </font>
                                     </Label>
                                     <TextField fx:id="finishedPlans_planID" layoutX="190.0" layoutY="30.0" prefHeight="30.0" prefWidth="150.0" AnchorPane.leftAnchor="168.0" AnchorPane.rightAnchor="109.0" />
-                                    <Button fx:id="finishedPlans_updateBtn" layoutX="176.0" layoutY="124.0" mnemonicParsing="false" onAction="#finishedPlansUpdateBtn" prefHeight="33.0" prefWidth="178.0" styleClass="btn" stylesheets="@planDesign.css" text="Update" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="125.0" />
+                                    <Button fx:id="finishedPlans_updateBtn" layoutX="176.0" layoutY="124.0" mnemonicParsing="false" onAction="#finishedPlansUpdateBtn" prefHeight="33.0" prefWidth="178.0" styleClass="btn" stylesheets="@mainDesign.css" text="Update" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="125.0" />
                                  </children>
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="settings_form" layoutX="67.0" layoutY="72.0" prefHeight="544.8" prefWidth="860.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="settings_form" layoutX="67.0" layoutY="72.0" prefHeight="544.8" prefWidth="860.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Label layoutX="56.0" layoutY="22.0" text="Username:" textFill="WHITE">
+                              <Label layoutX="36.0" layoutY="199.0" text="Date of Birth:" textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="home_username" layoutX="200.0" layoutY="22.0" prefHeight="30.0" prefWidth="229.0" text="Sabagan" textFill="WHITE">
+                              <Label fx:id="home_username" layoutX="200.0" layoutY="106.0" prefHeight="30.0" prefWidth="229.0" text="Creator" textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="54.0" layoutY="88.0" text="Date Registered:" textFill="WHITE">
+                              <Label layoutX="36.0" layoutY="153.0" text="Date Registered:" textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="home_dateRegistered" layoutX="227.0" layoutY="88.0" prefHeight="30.0" prefWidth="228.0" text="Sabagan" textFill="WHITE">
+                              <Label fx:id="home_dateRegistered" layoutX="201.0" layoutY="153.0" prefHeight="30.0" prefWidth="228.0" text="2024-05-20" textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </Label>
+                              <Label layoutX="19.0" layoutY="14.0" prefHeight="17.0" prefWidth="183.0" text="Profile Details" textFill="WHITE">
+                                 <font>
+                                    <Font name="Agency FB Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="36.0" layoutY="300.0" text="Phone:" textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="36.0" layoutY="106.0" text="Username:" textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="36.0" layoutY="61.0" text="Name:" textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="17.0" layoutY="257.0" prefHeight="17.0" prefWidth="183.0" text="Contact Info" textFill="WHITE">
+                                 <font>
+                                    <Font name="Agency FB Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="36.0" layoutY="341.0" text="Email:" textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="home_email" layoutX="200.0" layoutY="341.0" prefHeight="30.0" prefWidth="230.0" />
+                              <TextField fx:id="home_phone" layoutX="200.0" layoutY="300.0" prefHeight="30.0" prefWidth="230.0" />
+                              <TextField fx:id="home_name" layoutX="200.0" layoutY="61.0" prefHeight="30.0" prefWidth="230.0" />
+                              <Button fx:id="saveChanges_btn" layoutX="78.0" layoutY="437.0" mnemonicParsing="false" onAction="#updateSettingsDetails" prefHeight="45.0" prefWidth="147.0" styleClass="card" stylesheets="@mainDesign.css" text="Save Changes">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Button>
+                              <AreaChart fx:id="userLogins_graph" layoutX="444.0" layoutY="43.0" prefHeight="500.0" prefWidth="414.0">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </AreaChart>
+                              <Button fx:id="discardChanges_btn" layoutX="260.0" layoutY="437.0" mnemonicParsing="false" onAction="#discardChangesSettings" prefHeight="45.0" prefWidth="147.0" styleClass="card" stylesheets="@mainDesign.css" text="Discard Changes">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Button>
+                              <DatePicker fx:id="home_dateOfBirth" layoutX="200.0" layoutY="199.0" prefHeight="30.0" prefWidth="230.0" />
                            </children>
                         </AnchorPane>
                      </children>

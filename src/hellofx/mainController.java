@@ -79,7 +79,7 @@ public class mainController implements Initializable {
     private Button home_btn;
 
     @FXML
-    private TextField home_dateOfBirth;
+    private DatePicker home_dateOfBirth;
 
     @FXML
     private TextField home_email;
@@ -581,6 +581,69 @@ public class mainController implements Initializable {
         username.setText(user.substring(0, 1).toUpperCase() + user.substring(1));
     }
 
+    public void updateSettingsDetails() {
+        connect = database.connectDB();
+        try {
+            String updateData = "UPDATE `user` SET `name` = ?, `birthDate` = ?, `phoneNumber` = ?, `email` = ? WHERE `username` = ?";
+            prepare = connect.prepareStatement(updateData);
+
+            if (!home_name.getText().isEmpty()) {
+                prepare.setString(1, home_name.getText());
+            }
+            if (home_dateOfBirth.getValue() != null) {
+                prepare.setDate(2, java.sql.Date.valueOf(home_dateOfBirth.getValue()));
+            }
+            if (!home_phone.getText().isEmpty()) {
+                prepare.setString(3, home_phone.getText());
+            }
+            if (!home_email.getText().isEmpty()) {
+                prepare.setString(4, home_email.getText());
+            }
+            prepare.setString(5, home_username.getText());
+
+            prepare.executeUpdate();
+
+            discardChangesSettings();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void discardChangesSettings() {
+        // Set text to empty for all text fields
+        // Call the displaySettingsDetails() to bring back the values that were there before
+        home_name.setText("");
+        home_dateOfBirth.setValue(null);
+        home_phone.setText("");
+        home_email.setText("");
+        displaySettingsDetails();
+    }
+
+    public void displaySettingsDetails() {
+        // Show the values in the text fields retrieved from the database
+        String getData = "SELECT * FROM user WHERE username = '" + username.getText() + "'";
+        connect = database.connectDB();
+        try {
+            prepare = connect.prepareStatement(getData);
+            result = prepare.executeQuery();
+            if (result.next()) {
+                home_name.setText(result.getString("name"));
+                if (result.getDate("birthDate") != null) {
+                    home_dateOfBirth.setValue(result.getDate("birthDate").toLocalDate());
+                }
+                else {
+                    home_dateOfBirth.setValue(null);
+                }
+                home_phone.setText(result.getString("phoneNumber"));
+                home_email.setText(result.getString("email"));
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void switchForm(ActionEvent event) {
         if (event.getSource() == home_btn) {
             home_form.setVisible(true);
@@ -656,5 +719,7 @@ public class mainController implements Initializable {
 
         finishedPlansListStatus();
         finishedPlansShowData();
+
+        displaySettingsDetails();
     }
 }
