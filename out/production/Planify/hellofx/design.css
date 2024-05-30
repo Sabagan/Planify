@@ -1,5 +1,5 @@
 .bg-form {
-    -fx-background-color: linear-gradient(to bottom right, #249f6a, #0f673a);
+    -fx-background-color: linear-gradient(to bottom right, #6CB4EE, #318CE7);
 }
 
 .input {
@@ -8,6 +8,7 @@
 
 .empty-form {
     -fx-background-image: url('side-image.jpg');
+    -fx-background-color: #318CE7;
 }
 
 .login-btn {

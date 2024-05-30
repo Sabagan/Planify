@@ -27,21 +27,15 @@
                      <children>
                         <AnchorPane layoutX="312.0" layoutY="-58.0" prefHeight="55.0" prefWidth="1100.0" styleClass="top-form" stylesheets="@mainDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Label layoutX="866.0" layoutY="19.0" text="Welcome," textFill="WHITE" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="19.0">
-                                 <font>
-                                    <Font name="Tahoma" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="username" layoutX="936.0" layoutY="18.0" prefHeight="19.0" prefWidth="149.0" text="Sabagan" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="18.0">
-                                 <font>
-                                    <Font name="Arial Bold" size="15.0" />
-                                 </font>
-                              </Label>
                               <Label fx:id="page_label" layoutX="45.0" layoutY="13.0" text="HOME" textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </Label>
+                              <FontAwesomeIcon fill="WHITE" glyphName="INBOX" layoutX="1012.0" layoutY="40.0" size="3em" />
+                              <FontAwesomeIcon fill="WHITE" glyphName="TRASH" layoutX="936.0" layoutY="40.0" size="3em" />
+                              <FontAwesomeIcon fill="WHITE" glyphName="CAMERA" layoutX="851.0" layoutY="40.0" size="3em" />
+                              <FontAwesomeIcon fill="WHITE" glyphName="PRINT" layoutX="767.0" layoutY="40.0" size="3em" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -50,9 +44,9 @@
                <left>
                   <AnchorPane prefHeight="545.0" prefWidth="240.0" styleClass="nav-form" stylesheets="@mainDesign.css" BorderPane.alignment="CENTER">
                      <children>
-                        <Button fx:id="home_btn" layoutX="10.0" layoutY="165.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="219.0" styleClass="nav-btn" stylesheets="@mainDesign.css" text="Home" />
-                        <Button fx:id="myPlans_btn" layoutX="10.0" layoutY="218.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="219.0" styleClass="nav-btn" stylesheets="@mainDesign.css" text="My Plans" />
-                        <Button fx:id="finishedPlans_btn" layoutX="10.0" layoutY="272.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="219.0" styleClass="nav-btn" stylesheets="@mainDesign.css" text="Finished Plans" />
+                        <Button fx:id="home_btn" layoutX="10.0" layoutY="201.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="219.0" styleClass="nav-btn" stylesheets="@mainDesign.css" text="Home" />
+                        <Button fx:id="myPlans_btn" layoutX="10.0" layoutY="252.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="219.0" styleClass="nav-btn" stylesheets="@mainDesign.css" text="My Plans" />
+                        <Button fx:id="finishedPlans_btn" layoutX="10.0" layoutY="304.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="219.0" styleClass="nav-btn" stylesheets="@mainDesign.css" text="Finished Plans" />
                         <Button fx:id="logout_btn" layoutX="14.0" layoutY="493.0" mnemonicParsing="false" onAction="#logout" styleClass="logout" stylesheets="@mainDesign.css" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="11.0">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" size="2em" />
@@ -74,15 +68,25 @@
                               <Font name="Tahoma" size="14.0" />
                            </font>
                         </Label>
+                        <Label layoutX="72.0" layoutY="134.0" text="Welcome Back," textFill="WHITE">
+                           <font>
+                              <Font name="Tahoma" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="username" alignment="CENTER" layoutX="44.0" layoutY="152.0" prefHeight="19.0" prefWidth="149.0" text="Sabagan" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </left>
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="center-form" stylesheets="@mainDesign.css" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="home_form" layoutX="14.0" layoutY="14.0" prefHeight="544.8" prefWidth="860.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="home_form" layoutX="14.0" layoutY="14.0" prefHeight="544.8" prefWidth="860.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane layoutX="14.0" layoutY="292.0" prefHeight="237.0" prefWidth="406.0" styleClass="card" stylesheets="@mainDesign.css">
+                              <AnchorPane layoutX="14.0" layoutY="292.0" prefHeight="237.0" prefWidth="406.0" styleClass="card" stylesheets="@mainDesign.css" AnchorPane.bottomAnchor="15.599999999999966" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="450.0">
                                  <children>
                                     <FontAwesomeIcon fill="WHITE" glyphName="CLIPBOARD" layoutX="26.0" layoutY="161.0" size="10em" wrappingWidth="102.39996337890625" />
                                     <Label fx:id="home_NAP" alignment="CENTER_RIGHT" layoutX="203.0" layoutY="58.0" prefHeight="27.0" prefWidth="160.0" text="0" textFill="WHITE">
@@ -112,7 +116,7 @@
                                     </Label>
                                  </children>
                               </AnchorPane>
-                              <AreaChart fx:id="graph" prefHeight="289.0" prefWidth="858.0">
+                              <AreaChart fx:id="graph" prefHeight="289.0" prefWidth="858.0" AnchorPane.bottomAnchor="255.59999999999997" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="-5.684341886080802E-14">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>
@@ -197,7 +201,7 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="settings_form" layoutX="67.0" layoutY="72.0" prefHeight="544.8" prefWidth="860.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="settings_form" layoutX="67.0" layoutY="72.0" prefHeight="544.8" prefWidth="860.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Label layoutX="36.0" layoutY="199.0" text="Date of Birth:" textFill="WHITE">
                                  <font>
@@ -257,7 +261,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Button>
-                              <AreaChart fx:id="userLogins_graph" layoutX="444.0" layoutY="43.0" prefHeight="500.0" prefWidth="414.0">
+                              <AreaChart fx:id="userLogins_graph" layoutX="444.0" layoutY="43.0" prefHeight="500.0" prefWidth="414.0" title="Logins Per Day">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>

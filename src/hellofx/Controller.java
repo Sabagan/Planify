@@ -21,6 +21,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -58,10 +60,10 @@ public class Controller implements Initializable {
     @FXML
     private TextField register_username;
 
-    // Create the Database
     private Connection connect;
     private PreparedStatement prepare;
     private ResultSet result;
+
     private Alert alert;
 
     public void loginAccount() {
@@ -71,11 +73,7 @@ public class Controller implements Initializable {
 
         try {
             if (login_username.getText().isEmpty() || login_password.getText().isEmpty()) {
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Please fill all the fields");
-                alert.showAndWait();
+                alertMsg("Error", "Please fill all the fields");
             }
             else {
                 prepare = connect.prepareStatement(selectData);
@@ -83,12 +81,7 @@ public class Controller implements Initializable {
 
                 if (result.next()) {
                     data.username = login_username.getText();
-
-                    alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Successfully logged in");
-                    alert.showAndWait();
+                    alertMsg("Information", "Successfully logged in");
 
                     // TO HIDE THE LOGIN FORM
                     login_button.getScene().getWindow().hide();
@@ -109,11 +102,7 @@ public class Controller implements Initializable {
                     }
                 }
                 else {
-                    alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Incorrect Username or Password");
-                    alert.showAndWait();
+                    alertMsg("Error", "Incorrect Username or Password");
                 }
             }
         }
@@ -128,11 +117,7 @@ public class Controller implements Initializable {
 
         try {
             if (register_username.getText().isEmpty() || register_password.getText().isEmpty()) {
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Please fill all the fields");
-                alert.showAndWait();
+                alertMsg("Error", "Please fill all the fields");
             }
             else {
                 String checkUsername = "SELECT username FROM user WHERE username = '"
@@ -141,19 +126,11 @@ public class Controller implements Initializable {
                 result = prepare.executeQuery();
 
                 if (result.next()) {
-                    alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText(register_username.getText() + " was already taken");
-                    alert.showAndWait();
+                    alertMsg("Error", register_username.getText() + " was already taken");
                 }
                 else {
                     if (register_password.getText().length() < 8) {
-                        alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error Message");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Invalid password, atleast 8 characters needed");
-                        alert.showAndWait();
+                        alertMsg("Error", "Invalid password, at least 8 characters needed");
                     }
                     else {
                         prepare = connect.prepareStatement(insertData);
@@ -166,11 +143,7 @@ public class Controller implements Initializable {
 
                         prepare.executeUpdate();
 
-                        alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Information Message");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Successfully registered");
-                        alert.showAndWait();
+                        alertMsg("Information", "Successfully registered");
 
                         register_username.setText("");
                         register_password.setText("");
@@ -186,6 +159,17 @@ public class Controller implements Initializable {
 
     }
 
+    public void alertMsg(String type, String msg) {
+        Map alerts = new HashMap();
+        alerts.put("Error", Alert.AlertType.ERROR);
+        alerts.put("Information", Alert.AlertType.INFORMATION);
+
+        alert = new Alert((Alert.AlertType) alerts.get(type));
+        alert.setTitle(type + " Message");
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
 
     public void switchForm(ActionEvent event) {
         if (event.getSource() == login_createAccount) {

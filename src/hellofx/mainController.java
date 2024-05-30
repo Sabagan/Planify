@@ -9,18 +9,24 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.List;
 
 public class mainController implements Initializable {
 
@@ -31,7 +37,7 @@ public class mainController implements Initializable {
     private Button saveChanges_btn;
 
     @FXML
-    private AreaChart<?, ?> userLogins_graph;
+    private AreaChart<String, Number> userLogins_graph;
 
     @FXML
     private Button finishedPlans_btn;
@@ -67,7 +73,7 @@ public class mainController implements Initializable {
     private Button finishedPlans_updateBtn;
 
     @FXML
-    private AreaChart<?, ?> graph;
+    private AreaChart<String, Number> graph;
 
     @FXML
     private Label home_FP;
@@ -195,6 +201,7 @@ public class mainController implements Initializable {
                 + username.getText() + "'";
 
         connect = database.connectDB();
+
         try {
             prepare = connect.prepareStatement(sql);
             result = prepare.executeQuery();
@@ -212,6 +219,7 @@ public class mainController implements Initializable {
                 + username.getText() + "' AND status = 'Finished'";
 
         connect = database.connectDB();
+
         try {
             prepare = connect.prepareStatement(sql);
             result = prepare.executeQuery();
@@ -230,19 +238,11 @@ public class mainController implements Initializable {
         try {
             if (myPlans_plan.getText().isEmpty() || myPlans_startDate.getValue() == null
                     || myPlans_endDate.getValue() == null) {
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Please fill all the fields");
-                alert.showAndWait();
+                alertMsg("Error", "Please fill all the fields");
             }
             else {
                 if (myPlans_startDate.getValue().isAfter(myPlans_endDate.getValue())) {
-                    alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Invalid Date :3");
-                    alert.showAndWait();
+                    alertMsg("Error", "Invalid Data");
                 }
                 else {
                     String checkPlan = "SELECT plans FROM myplans WHERE plans = '"
@@ -251,11 +251,7 @@ public class mainController implements Initializable {
                     result = prepare.executeQuery();
 
                     if (result.next()) {
-                        alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error Message");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Plan " + myPlans_plan.getText() + " already exists");
-                        alert.showAndWait();
+                        alertMsg("Error", "Plan " + myPlans_plan.getText() + " already exists");
                     }
                     else {
                         String insertData = "INSERT INTO myplans (plans, startDate, endDate, dateCreated, status, planner) "
@@ -275,6 +271,7 @@ public class mainController implements Initializable {
 
                         myPlansShowData();
                         myPlansClearBtn();
+                        updateGraph();
                     }
                 }
             }
@@ -289,11 +286,7 @@ public class mainController implements Initializable {
 
         try {
             if (planID == 0) {
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Please select the item first");
-                alert.showAndWait();
+                alertMsg("Error", "Please select the item first");
             }
             else {
                 alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -319,22 +312,14 @@ public class mainController implements Initializable {
                         prepare = connect.prepareStatement(updateData);
                         prepare.executeUpdate();
 
-                        alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Information Message");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Successfully Updated");
-                        alert.showAndWait();
+                        alertMsg("Information", "Successfully Updated");
 
                         myPlansShowData();
                         myPlansClearBtn();
                     }
                 }
                 else {
-                    alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Cancelled");
-                    alert.showAndWait();
+                    alertMsg("Error", "Cancelled");
                 }
             }
         }
@@ -348,11 +333,7 @@ public class mainController implements Initializable {
 
         try {
             if (planID == 0) {
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Please select the item first");
-                alert.showAndWait();
+                alertMsg("Error", "Please select the item first");
             }
             else {
                 alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -374,22 +355,15 @@ public class mainController implements Initializable {
                         prepare = connect.prepareStatement(deleteData);
                         prepare.executeUpdate();
 
-                        alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Information Message");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Successfully Updated");
-                        alert.showAndWait();
+                        alertMsg("Information", "Successfully Deleted");
 
                         myPlansShowData();
                         myPlansClearBtn();
+                        updateGraph();
                     }
                 }
                 else {
-                    alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Cancelled");
-                    alert.showAndWait();
+                    alertMsg("Error", "Cancelled");
                 }
             }
         }
@@ -460,11 +434,7 @@ public class mainController implements Initializable {
 
         try {
             if (finishedPlans_planID.getText().isEmpty() || finishedPlans_status.getSelectionModel().getSelectedItem() == null) {
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Please select the item first");
-                alert.showAndWait();
+                alertMsg("Error", "Please select the item first");
             }
             else {
                 alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -506,14 +476,11 @@ public class mainController implements Initializable {
                         alert.showAndWait();
 
                         finishedPlansShowData();
+                        updateGraph();
                     }
                 }
                 else {
-                    alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Cancelled");
-                    alert.showAndWait();
+                    alertMsg("Error", "Cancelled");
                 }
             }
         }
@@ -644,6 +611,118 @@ public class mainController implements Initializable {
         }
     }
 
+    public void manageLoginCount() {
+        String getData = "SELECT * FROM `loginlog` WHERE username = '" + username.getText() + "'" +
+                "and loggedDate = '" + java.sql.Date.valueOf(LocalDate.now()) + "'";
+        connect = database.connectDB();
+        try {
+            prepare = connect.prepareStatement(getData);
+            result = prepare.executeQuery();
+            if (result.next()) {
+                String updateQuery = "UPDATE `loginlog` SET `logins` = ? WHERE `username` = ? AND `loggedDate` = ?";
+                prepare = connect.prepareStatement(updateQuery);
+                int currentLogins = result.getInt("logins");
+                prepare.setInt(1, currentLogins + 1);
+                prepare.setString(2, username.getText());
+                prepare.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
+                prepare.executeUpdate();
+            }
+            else {
+                String insertData = "INSERT INTO `loginlog` (`username`, `loggedDate`, `logins`) " +
+                        "VALUES (?, ?, ?)";
+                prepare = connect.prepareStatement(insertData);
+                prepare.setString(1, username.getText());
+                Date date = new Date();
+                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                prepare.setString(2, String.valueOf(sqlDate));
+                prepare.setInt(3, 1);
+                prepare.executeUpdate();
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateLoginsGraph() {
+        userLogins_graph.getData().clear();
+
+        String sql = "SELECT loggedDate, logins FROM `loginlog` WHERE username = ?";
+
+        connect = database.connectDB();
+
+        try {
+            XYChart.Series<String, Number> chart = new XYChart.Series();
+            prepare = connect.prepareStatement(sql);
+            prepare.setString(1, username.getText());
+            result = prepare.executeQuery();
+
+            while (result.next()) {
+                Date loggedDate = result.getDate("loggedDate");
+                String dateString = new SimpleDateFormat("yyyy-MM-dd").format(loggedDate);
+                int logins = result.getInt("logins");
+                chart.getData().add(new XYChart.Data<>(dateString, logins));
+            }
+
+            userLogins_graph.getData().add(chart);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if (result != null) result.close();
+                if (prepare != null) prepare.close();
+                if (connect != null) connect.close();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void updateGraph() {
+        graph.getData().clear();
+
+        String sql = "SELECT dateCreated, COUNT(*) AS count" +
+                " FROM `myplans` WHERE planner = ? AND status = ?" +
+                " GROUP BY dateCreated";
+
+        connect = database.connectDB();
+
+        try {
+            XYChart.Series<String, Number> chart = new XYChart.Series();
+            prepare = connect.prepareStatement(sql);
+            prepare.setString(1, username.getText().substring(0, 1).toUpperCase() + username.getText().substring(1));
+            prepare.setString(2, "Not Finished");
+            result = prepare.executeQuery();
+
+            while (result.next()) {
+                Date created = result.getDate("dateCreated");
+                String dateString = new SimpleDateFormat("yyyy-MM-dd").format(created);
+                int count = result.getInt("count");
+                chart.getData().add(new XYChart.Data<>(dateString, count));
+            }
+
+            graph.getData().add(chart);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void alertMsg(String type, String msg) {
+        HashMap alerts = new HashMap();
+        alerts.put("Error", Alert.AlertType.ERROR);
+        alerts.put("Information", Alert.AlertType.INFORMATION);
+
+        alert = new Alert((Alert.AlertType) alerts.get(type));
+        alert.setTitle(type + " Message");
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
+
     public void switchForm(ActionEvent event) {
         if (event.getSource() == home_btn) {
             home_form.setVisible(true);
@@ -714,6 +793,10 @@ public class mainController implements Initializable {
         homeDisplayDateRegistered();
         homeDisplayFP();
         homeDisplayNAP();
+        updateGraph();
+
+        manageLoginCount();
+        updateLoginsGraph();
 
         myPlansShowData();
 
